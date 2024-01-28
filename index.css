@@ -64,3 +64,17 @@ body {
 .top-restaurant-btn {
     cursor: pointer;
 }
+.res-filter {
+    display: flex;
+    justify-content: space-between;
+}
+.res-shimmer {
+    width: 20%;
+    height: 150px;
+    background-color: #f0f0f0;
+    border-radius: 1rem;
+    margin: 0 1rem 2rem 0;
+}
+.no-res {
+    text-align: center;
+}
