@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { LOGO_URL } from "../utils/constants";
 
 const Header = () => (
@@ -7,9 +8,10 @@ const Header = () => (
         </div>
         <div className='nav-items'>
             <ul>
-                <li>Home</li>
+                <li><Link to='/'>Home</Link></li>
                 <li>Offers</li>
-                <li>Help</li>
+                <li><Link to='/about'>About</Link></li>
+                <li><Link to='/contact'>Contact</Link></li>
                 <li>Sign In</li>
                 <li>Cart</li>
             </ul>

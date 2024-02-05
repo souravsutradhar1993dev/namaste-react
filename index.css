@@ -11,7 +11,7 @@ body {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0px 10px 30px #e7e3e3;
-    position: fixed;
+    position: sticky;
     width: 100%;
     background: #fff;
     top: 0;
@@ -67,6 +67,10 @@ body {
 .res-filter {
     display: flex;
     justify-content: space-between;
+}
+.res-shimmer-section {
+    display: flex;
+    flex-wrap: wrap;
 }
 .res-shimmer {
     width: 20%;
