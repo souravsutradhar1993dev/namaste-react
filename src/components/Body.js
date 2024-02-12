@@ -24,15 +24,15 @@ const Body = () => {
         fetchData();
     }, []);
     return (
-        <div className='body'>
-            <div className="res-filter">
-                <div className="search-section">
-                    <input type="text" placeholder="Search" onChange={e => setSearchText(e.target.value)} value={searchText} />
-                    <button onClick={() => setFilteredRestaurantList( searchText ? restaurantList.filter(restaurant => restaurant?.info?.name.toLowerCase().includes(searchText.toLowerCase())) : restaurantList)}>Search</button>
+        <div className='md:px-40 py-4'>
+            <div className="flex flex-col md:flex-row justify-between py-5">
+                <div>
+                    <input className="px-2 py-2 mr-1 outline-none bg-gray-200 rounded-md" type="text" placeholder="Search" onChange={e => setSearchText(e.target.value)} value={searchText} />
+                    <button className="bg-orange-400 px-4 py-2 text-white rounded-md" onClick={() => setFilteredRestaurantList( searchText ? restaurantList.filter(restaurant => restaurant?.info?.name.toLowerCase().includes(searchText.toLowerCase())) : restaurantList)}>Search</button>
                 </div>
-                <button className='top-restaurant-btn' onClick={() => setFilteredRestaurantList(filteredRestaurantList.filter(restaurant => restaurant?.info?.avgRating >= 4.5))}>Top Rated Restaurants 4.5+</button>
+                <button className='bg-orange-400 px-4 py-2 text-white rounded-md' onClick={() => setFilteredRestaurantList(filteredRestaurantList.filter(restaurant => restaurant?.info?.avgRating >= 4.5))}>Top Rated Restaurants 4.5+</button>
             </div>
-            {loader ? <Shimmer /> : <div className='res-container'>{(filteredRestaurantList.length === 0 ? <p className="no-res">No restaurant found!</p> : filteredRestaurantList.map(restaurant => <RestaurantCard key={restaurant?.info?.id} resDetails={restaurant}  /> ))}</div>}
+            {loader ? <div className="py-5"><Shimmer /></div> : (filteredRestaurantList.length === 0 ? <p className="text-center font-bold py-5 text-2xl">No restaurant found!</p> : <div className='grid md:grid-cols-4 md:gap-8 py-5'>{filteredRestaurantList.map(restaurant => <RestaurantCard key={restaurant?.info?.id} resDetails={restaurant}  /> )}</div>)}
         </div>
     )
 };
