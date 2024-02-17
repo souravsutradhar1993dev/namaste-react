@@ -1,22 +1,27 @@
-import { useParams } from "react-router-dom";
-import useRestaurantInfo from "../utils/useRestaurantInfo";
-import Shimmer from "./Shimmer";
+import { RES_IMAGE_BASE_URL } from "../utils/constants";
 
-const Restaurant = () => {
-    const {resId} = useParams();
-    const resInfo = useRestaurantInfo(resId);
-    
-    if(!resInfo) return <Shimmer />
-
-    const {name, cuisines, areaName} = resInfo?.cards[0]?.card?.card?.info;
-
+const Restaurant = ({cardDetails}) => {
+    const {name, cuisines, areaName, sla, expectationNotifiers, avgRatingString, totalRatingsString, costForTwoMessage } = cardDetails?.info;
     return (
         <div>
-            <h1>{name}</h1>
-            <p>{cuisines.join(', ')}</p>
-            <p>{areaName}</p>
+            <div className="flex justify-between border-b-2 border-dashed border-b-gray-300">
+                <div>
+                    <h2 className="font-bold">{name}</h2>
+                    <p className="text-xs">{cuisines.join(', ')}</p>
+                    <p className="text-xs">{areaName}, {sla?.lastMileTravelString}</p>
+                    <div className="flex"><img className="w-4" src={RES_IMAGE_BASE_URL + expectationNotifiers?.[0]?.icon?.imageId} /> <span className="text-xs">{expectationNotifiers?.[0]?.text}</span></div>
+                </div>
+                <div>
+                    <p>{avgRatingString}</p>
+                    <p>{totalRatingsString}</p>
+                </div>
+            </div>
+            <div className="flex font-bold gap-3">
+                <p>{sla?.slaString}</p>
+                <p>{costForTwoMessage}</p>
+            </div>
         </div>
-    );
-};
+    )
+}
 
 export default Restaurant;

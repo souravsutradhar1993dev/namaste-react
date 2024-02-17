@@ -1,27 +1,32 @@
-import React, {lazy, Suspense} from 'react';
+import React, {lazy, Suspense, useEffect, useState} from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import Header from './components/Header';
-import Body from './components/Body';
-import Footer from './components/Footer';
+import Home from './components/Home';
 //import About from './components/About';
 import Contact from './components/Contact';
 import Error from './components/Error';
-import Restaurant from './components/Restaurant';
+import SingleRestaurant from './components/SingleRestaurant';
 import Offline from './components/Offline';
 import useOnlineStatus from './utils/useOnlineStatus';
 import Shimmer from './components/Shimmer';
+import UserContext from './utils/UserContext';
 
 const AppLayout = () => {
     const onlineStatus = useOnlineStatus();
+    const [userName, setUserName] = useState('');
+    useEffect(() => {
+        setUserName('Sourav Sutradhar')
+    }, [])
     return (
-        <div className='app'>
-            <Header />
-            {
-                onlineStatus ? <Outlet /> : <Offline />
-            }
-            <Footer />
-        </div>
+        <UserContext.Provider value={{loggedInUser: userName, setUserName}}>
+            <div className='app'>
+                <Header />
+                {
+                    onlineStatus ? <Outlet /> : <Offline />
+                }
+            </div>
+        </UserContext.Provider>
     ); 
 };
 
@@ -35,7 +40,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Body/>
+                element: <Home/>
             },
             {
                 path: '/about',
@@ -47,7 +52,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/restaurants/:resId',
-                element: <Restaurant />
+                element: <SingleRestaurant />
             }
         ]
     },
