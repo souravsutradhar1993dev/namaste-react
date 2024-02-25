@@ -11,6 +11,9 @@ import Offline from './components/Offline';
 import useOnlineStatus from './utils/useOnlineStatus';
 import Shimmer from './components/Shimmer';
 import UserContext from './utils/UserContext';
+import { Provider } from 'react-redux'
+import appStore from './utils/appStore';
+import Cart from './components/Cart';
 
 const AppLayout = () => {
     const onlineStatus = useOnlineStatus();
@@ -19,14 +22,16 @@ const AppLayout = () => {
         setUserName('Sourav Sutradhar')
     }, [])
     return (
-        <UserContext.Provider value={{loggedInUser: userName, setUserName}}>
-            <div className='app'>
-                <Header />
-                {
-                    onlineStatus ? <Outlet /> : <Offline />
-                }
-            </div>
-        </UserContext.Provider>
+        <Provider store={appStore}>
+            <UserContext.Provider value={{loggedInUser: userName, setUserName}}>
+                <div className='app'>
+                    <Header />
+                    {
+                        onlineStatus ? <Outlet /> : <Offline />
+                    }
+                </div>
+            </UserContext.Provider>
+        </Provider>
     ); 
 };
 
@@ -49,6 +54,10 @@ const router = createBrowserRouter([
             {
                 path: '/contact',
                 element: <Contact />
+            },
+            {
+                path: '/cart',
+                element: <Cart />
             },
             {
                 path: '/restaurants/:resId',

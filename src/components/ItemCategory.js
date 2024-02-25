@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Dish from "./Dish";
 
 const ItemCategory = ({cardDetails}) => {
@@ -13,12 +12,11 @@ const ItemCategory = ({cardDetails}) => {
 
 export const ItemCategoryWithHeading = (ItemCategory) => {
     return (props) => {
-        console.log(props.showDishes)
         const {title, itemCards} = props?.cardDetails;
         
         return (
-            <div className="px-5 pt-10" onClick={() => props.setShowCategoryTitle()}>
-                <div className="flex justify-between cursor-pointer">
+            <div className="px-5 pt-10">
+                <div className="flex justify-between cursor-pointer" onClick={() => props.setShowCategoryTitle()}>
                     <h2 className="text-xl font-bold">{title} ({itemCards.length})</h2>
                     <span>{props.showDishes ? '⬆' : '⬇'}</span>
                 </div>
